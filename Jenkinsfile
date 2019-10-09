@@ -39,7 +39,7 @@ node('agent && linux') // shall only run on a jenkins agent with linux
 			'pom.xml', // pomFile
 			MAVEN_SETTINGS, // settingsFile
 			"mvn-${env.BRANCH_NAME}", // mvnRepoName
-			'https://repo.metasfresh.com' // mvnRepoBaseURL (resolve and deploy)
+			'https://nexus.metasfresh.com' // mvnRepoBaseURL (resolve and deploy)
 		)
 		echo "mvnConf=${mvnConf}"
 
