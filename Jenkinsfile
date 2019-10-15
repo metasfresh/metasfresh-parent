@@ -3,7 +3,7 @@
 // thx to https://github.com/jenkinsci/pipeline-examples/blob/master/docs/BEST_PRACTICES.md
 
 // note that we set a default version for this library in jenkins, so we don't have to specify it here
-@Library('misc@ghNewNexus')
+@Library('misc')
 import de.metas.jenkins.MvnConf
 import de.metas.jenkins.Misc
 
@@ -32,14 +32,14 @@ node('agent && linux') // shall only run on a jenkins agent with linux
 		sh 'git clean -d --force -x' // clean the workspace
 	}
 
-    configFileProvider([configFile(fileId: 'metasfresh-global-maven-settings_nexus_metasfresh_com', replaceTokens: true, variable: 'MAVEN_SETTINGS')])
+    configFileProvider([configFile(fileId: 'metasfresh-global-maven-settings', replaceTokens: true, variable: 'MAVEN_SETTINGS')])
     {
 		// create our config instance to be used further on
 		final MvnConf mvnConf = new MvnConf(
 			'pom.xml', // pomFile
 			MAVEN_SETTINGS, // settingsFile
 			"mvn-${env.BRANCH_NAME}", // mvnRepoName
-			'https://nexus.metasfresh.com' // mvnRepoBaseURL (resolve and deploy)
+			'https://repo.metasfresh.com' // mvnRepoBaseURL (resolve and deploy)
 		)
 		echo "mvnConf=${mvnConf}"
 
