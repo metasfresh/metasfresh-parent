@@ -32,7 +32,7 @@ node('agent && linux') // shall only run on a jenkins agent with linux
 		sh 'git clean -d --force -x' // clean the workspace
 	}
 
-    configFileProvider([configFile(fileId: 'metasfresh-global-maven-settings', replaceTokens: true, variable: 'MAVEN_SETTINGS')])
+    configFileProvider([configFile(fileId: 'metasfresh-global-maven-settings_nexus_metasfresh_com', replaceTokens: true, variable: 'MAVEN_SETTINGS')])
     {
 		// create our config instance to be used further on
 		final MvnConf mvnConf = new MvnConf(
