@@ -30,8 +30,9 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 	</developers>
 
 	<properties>
-		<!-- this is our default; individual projects might need to specify their own settings -->
-		<metasfresh.java.version>1.8</metasfresh.java.version>
+		<!-- This is our default; individual projects might need to specify their own settings -->
+		<!-- It's not 1.13, but 13! (thx https://mkyong.com/maven/maven-error-release-version-1-13-not-supported/) -->
+		<metasfresh.java.version>13</metasfresh.java.version>
 
 		<!--
 			3.8.0 is currently the latest and greatest. Spring boot declares some 2.x version that 
@@ -42,7 +43,8 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 		<jasperreports.version>6.5.1</jasperreports.version>
 
 		<itext.version>2.1.7.js6</itext.version>
-		
+		<jaxb.version>2.3.1</jaxb.version>
+
 		<!-- https://github.com/codecentric/spring-boot-admin -->
 		<spring-boot-admin.version>1.5.0</spring-boot-admin.version>
 
@@ -206,6 +208,17 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 				<groupId>com.lowagie</groupId>
 				<artifactId>itext</artifactId>
 				<version>${itext.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>${jaxb.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.jaxb</groupId>
+				<artifactId>jaxb-runtime</artifactId>
+				<version>${jaxb.version}</version>
 			</dependency>
 
 			<!-- this also contains the javax.annotations -->
