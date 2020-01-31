@@ -39,7 +39,7 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 		-->
 		<assertj.version>3.8.0</assertj.version>
 
-		<jasperreports.version>6.5.1</jasperreports.version>
+		<jasperreports.version>6.7.0</jasperreports.version>
 
 		<itext.version>2.1.7.js6</itext.version>
 		
@@ -52,6 +52,9 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 		
 		<!-- with 5.4.2 we can't run junit tests from eclipse ("no tests found") -->
 		<junit-jupiter.version>5.4.1</junit-jupiter.version>
+
+		<logstash-logback-encoder.version>6.3</logstash-logback-encoder.version>
+
 	</properties>
 
 	<modules>
@@ -121,7 +124,7 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 				<exclusion>
-					<!-- exclude it here; explicitly add it fuzrther down; workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=545849 -->
+					<!-- exclude it here; explicitly add it further down; workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=545849 -->
 					<groupId>org.junit.platform</groupId>
 					<artifactId>junit-platform-launcher</artifactId>
 				</exclusion>
@@ -180,13 +183,9 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 			<version>1.4.1</version>
 			<scope>test</scope>
 		</dependency>
-
-
-
 	</dependencies>
 
 	<dependencyManagement>
-
 		<dependencies>
 
 			<dependency>
@@ -227,11 +226,44 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 				<version>0.2.1</version>
 			</dependency>
 
+			<dependency>
+				<groupId>net.logstash.logback</groupId>
+				<artifactId>logstash-logback-encoder</artifactId>
+				<version>${logstash-logback-encoder.version}</version>
+			</dependency>
 		</dependencies>
 
 	</dependencyManagement>
 
 	<build>
+		<plugins>
+			<plugin>
+				<!-- always add the git information to our artifacts, so we can know where we are coming from -->
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>4.0.0</version>
+				<executions>
+					<execution>
+						<id>get-the-git-infos</id>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+						<phase>initialize</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<generateGitPropertiesFile>true</generateGitPropertiesFile>
+					<generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+					<!--includeOnlyProperties>
+						For starts, we naively include everything.
+						Also see https://github.com/git-commit-id/git-commit-id-maven-plugin/blob/master/maven/docs/using-the-plugin.md
+						<includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
+						<includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
+					</includeOnlyProperties-->
+					<commitIdGenerationMode>full</commitIdGenerationMode>
+				</configuration>
+			</plugin>
+		</plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
