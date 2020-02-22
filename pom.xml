@@ -141,12 +141,14 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 			<version>${junit-jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>org.junit.vintage</groupId>
 			<artifactId>junit-vintage-engine</artifactId>
 			<version>${junit-jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
@@ -165,6 +167,12 @@ Default parent pom with common settings (e.g. java file encoding) to be used by 
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.junit.vintage</groupId>
+				<artifactId>junit-vintage-engine</artifactId>
+				<version>${junit-jupiter.version}</version>
+				<scope>test</scope>
+			</dependency>
 
 			<dependency>
 				<groupId>org.assertj</groupId>
